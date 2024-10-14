@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "memoiz"
 dynamic = ["version"]
 authors = [
-  { name="Adam Patterson", email="adam@faranalytics.net" },
+  { name="Adam Patterson", email="adam@farar.net" },
 ]
 description = "Memoiz is a memoization decorator that makes reasonable assumptions about how and if to cache the return value of a function or method based on the arguments passed to it. The decorator can be used on both free and bound functions."
 readme = "README.md"
@@ -18,8 +18,8 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/faranalytics/python_memoiz.git"
-"Bug Tracker" = "https://github.com/faranalytics/python_memoiz/issues"
+"Homepage" = "https://github.com/faranalytics/memoiz.git"
+"Bug Tracker" = "https://github.com/faranalytics/memoiz/issues"
 
 [tool.hatch.version]
 path = "src/memoiz/__about__.py"
