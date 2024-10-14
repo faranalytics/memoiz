@@ -54,35 +54,37 @@ class Cache:
         @wraps(callable)
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> T:
             try:
-                with self._lock:
-                    if (
-                        hasattr(args[0], callable.__name__)
-                        and inspect.unwrap(getattr(args[0], callable.__name__)) is callable
-                    ):
-                        # If the first argument is an object and it contains the method `callable` then use the unwrapped method (i.e., the bound function) for the key.
-                        # This is necessary because the bound function is the reference that may be used for invalidation.
-                        key = getattr(args[0], callable.__name__)
-                    else:
-                        # If this is not a method call, then use the wrapper for the key.  This is necessary, as referencing the function will return the wrapper.
-                        key = wrapper
+                if (
+                    hasattr(args[0], callable.__name__)
+                    and inspect.unwrap(getattr(args[0], callable.__name__)) is callable
+                ):
+                    # If the first argument is an object and it contains the method `callable` then use the unwrapped method (i.e., the bound function) for the key.
+                    # This is necessary because the bound function is the reference that may be used for invalidation.
+                    key = getattr(args[0], callable.__name__)
+                else:
+                    # If this is not a method call, then use the wrapper for the key.  This is necessary, as referencing the function will return the wrapper.
+                    key = wrapper
 
-                    hashable = self.freeze((args, kwargs))
+                hashable = self.freeze((args, kwargs))
 
-                    if key in self._cache and hashable in self._cache[key]:
-                        logging.debug(f"Using cache for {(key, hashable)}.")
-                        result = self._cache[key][hashable]
-                    else:
-                        result = callable(*args, **kwargs)
+                if key in self._cache and hashable in self._cache[key]:
+                    logging.debug(f"Using cache for {(key, hashable)}.")
+                    self._lock.acquire()
+                    result = self._cache[key][hashable]
+                    self._lock.release()
+                else:
+                    result = callable(*args, **kwargs)
+                    with self._lock:
                         if key not in self._cache:
                             self._cache[key] = {}
                         if hashable not in self._cache[key]:
                             self._cache[key][hashable] = result
                             logging.debug(f"Cached {(key, hashable)}.")
 
-                    if self.deep_copy:
-                        return copy.deepcopy(result)
-                    else:
-                        return result
+                if self.deep_copy:
+                    return copy.deepcopy(result)
+                else:
+                    return result
             except CacheException as e:
                 logging.debug(e)
                 return callable(*args, **kwargs)
