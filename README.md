@@ -38,6 +38,7 @@ In this example you will use Memoiz to memoize the return value of the `greeter.
 ```py
 from memoiz import Memoiz
 
+# `cache` is a Python decorator and a callable.
 cache = Memoiz()
 
 
@@ -46,7 +47,7 @@ class Greeter:
     def __init__(self):
         self.adv = "Very"
 
-    @cache #User the `cache` decorator in order to add memoization to the `greet` method.
+    @cache # Use the `cache` decorator in order to add memoization capabilities to the `greet` method.
     def greet(self, adj: str) -> str:
         return f"Hello, {self.adv} {adj} World!"
 
@@ -80,8 +81,7 @@ greeting = greeter.greet("Cautious")
 
 print("3:", greeting)
 
-# The cache has memoized the method call using the "Happy" argument and the
-# method call using the "Cautious" argument.
+# The cache has memoized the two method calls.
 print("4:", cache._cache)
 
 # Invalidate the call to `greeter.greet` with the "Happy" argument.
@@ -205,13 +205,13 @@ Effectively what this all means is that if you are using common Python iterables
 - allow_hash `bool` An optional flag that indicates if an object's hash is sufficient for indexing the callable's arguments. **Default:** `True`
 - deep_copy `bool` Optionally return the cached return value using Python's `copy.deepcopy`. This can help prevent mutations of the cached return value. **Default:** `True`.
 
-**cache.\_\_call\_\_(callable)**
+**memoiz.\_\_call\_\_(callable)**
 
 - callable `typing.Callable` The function or method for which you want to add memoization.
 
 A `Memoiz` instance ([see above](#the-cache-class)) is a callable. This is the `@cache` decorator that is used in order to add memoization to a callable. Please see the above [usage](#usage) for how to use this decorator.
 
-**cache.invalidate(callable, \*args, \*\*kwargs)**
+**memoiz.invalidate(callable, \*args, \*\*kwargs)**
 
 - callable `typing.Callable` The callable.
 - args `Any` The arguments passed to the callable.
@@ -221,7 +221,7 @@ Invalidates the cache for the specified callable and arguments. See the [usage](
 
 > **NB** The first argument of a method (i.e., a bound function) is the object instance e.g., the `self` in the method definition.
 
-**cache.invalidate_all()**
+**memoiz.invalidate_all()**
 
 Resets the cache making items in the old cache potentially eligible for garbage collection.
 
