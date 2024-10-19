@@ -21,6 +21,7 @@ Memoiz provides a function decorator that can be used in order to augment functi
   - [Free Functions](#free-functions)
 - [Limitations](#limitations)
 - [API](#api)
+- [Test](#test)
 
 ## Installation
 
@@ -220,4 +221,19 @@ Invalidates the cache for the specified callable and arguments. See the [usage](
 
 **cache.invalidate_all()**
 
-Resets the cache making the old cache eligible for garbage collection.
+Resets the cache making items in the old cache potentially eligible for garbage collection.
+
+## Test
+
+Clone the repository.
+```bash
+git clone https://github.com/faranalytics/memoiz.git
+```
+Change directory into the root of the repository.
+```bash
+cd memoiz
+```
+Run the tests.
+```bash
+python tests/test.py -v
+```
