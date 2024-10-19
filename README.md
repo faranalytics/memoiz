@@ -4,7 +4,7 @@ A thread-safe memoization decorator for functions and methods.
 
 ## Introduction
 
-Memoiz is a memoization decorator that makes reasonable assumptions about how and if to cache the return value of a function or method based on the arguments passed to it. The decorator can be used on both free and bound functions.
+Memoiz provides a function decorator that can be used in order to augment functions or methods with memoization capabilties.  It makes reasonable assumptions about how and if to cache the return value of a function or method based on the arguments passed to it. The decorator can be used on both free and bound functions.
 
 ## Features
 
@@ -175,11 +175,11 @@ print("6:", cache._cache)
 
 ## Limitations
 
-Memoization relies on the behavior of pure functions; given the same input the function will produce the same output. It isn't safe to assume that a callable is pure in Python; hence, you must use discretion.
+Memoization relies on the behavior of pure functions; given the same input the function will produce the same output. It isn't safe to assume that a callable is pure in Python; hence, discretion must be used when applying the decorator to a given callable.
 
-Memoiz uses a Python dictionary in order to cache callable inputs and outputs. Memoiz will attempt to transform a callable's arguments into a hashable representation. If it succeeds, the hashable representation of the callable's arguments is used as the dictionary key in order to store and look up the cached output. If it fails, Memoiz will call the decorated function or method and return the result.
+Memoiz uses a Python dictionary in order to cache the arguments and respective return value of the a callable. Memoiz will attempt to transform a callable's arguments into a hashable representation. If it succeeds, the hashable representation of the callable's arguments is used as the dictionary key in order to store and look up the cached return value. If it fails, Memoiz will call the decorated function or method and return the result.
 
-Memoiz employs a few strategies to produce a hashable lookup key. Memoiz will recursively iterate through `dict`, `list`, `set`, and `tuple` type arguments, transforming these mutable objects into hashable representations. See the [Type Transformation](#type-transformation) table for type transformations. When a primitive is encountered (e.g., `int`, `float`, `complex`, `bool`, `str`, `None`), it is left as is. If `allow_hash` is set to `True` (the default), Memoiz will additionally attempt to discern if an object is hashable using Python's `hash` function.
+Memoiz employs a few strategies to produce a hashable lookup key. Memoiz will recursively iterate through `dict`, `list`, `set`, and `tuple` type arguments, transforming mutable objects into hashable representations. See the [Type Transformation](#type-transformation) table for type transformations. When a primitive is encountered (e.g., `int`, `float`, `complex`, `bool`, `str`, `None`), it is left as is. If `allow_hash` is set to `True` (the default), Memoiz will additionally attempt to discern if an object is hashable using Python's `hash` function.
 
 Effectively what this all means is that if you are using common Python iterables and primitives as arguments to your callable, and if your callable doesn't have side effects, Memoiz should be able to accurately cache your input arguments and output for subsequent function calls.
 
