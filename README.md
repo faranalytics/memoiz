@@ -23,7 +23,7 @@ Memoiz provides a function decorator that can be used in order to augment functi
 - [API](#api)
 - [Test](#test)
 
-## Installation
+## <h2 id="installation">Installation</h2>
 
 ```bash
 pip install memoiz
