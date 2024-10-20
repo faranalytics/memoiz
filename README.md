@@ -17,8 +17,6 @@ Memoiz provides a function decorator that can be used in order to augment functi
 
 - [Installation](#installation)
 - [Usage](#usage)
-  - [Bound Functions (methods)](#bound-functions-methods)
-  - [Free Functions](#free-functions)
 - [Limitations](#limitations)
 - [API](#api)
 - [Test](#test)
@@ -29,7 +27,7 @@ Memoiz provides a function decorator that can be used in order to augment functi
 pip install memoiz
 ```
 
-## Usage
+## <h2 id="usage">Usage</h2>
 
 ### Bound Functions (methods)
 
@@ -174,7 +172,7 @@ print("6:", cache._cache)
 6: {}
 ```
 
-## Limitations
+## <h2 id="limitations">Limitations</h2>
 
 Memoization relies on the behavior of pure functions; given the same input the function produces the same output. It isn't safe to assume that a callable is pure in Python; hence, discretion must be used when applying the decorator to a given callable.
 
@@ -193,7 +191,7 @@ Effectively what this all means is that if you are using common Python iterables
 | tuple | tuple           |
 | set   | tuple           |
 
-## API
+## <h2 id="api">API</h2>
 
 ### The Memoiz Class
 
@@ -225,7 +223,7 @@ Invalidates the cache for the specified callable and arguments. See the [usage](
 
 Resets the cache making items in the old cache potentially eligible for garbage collection.
 
-## Test
+## <h2 id="test">Test</h2>
 
 Clone the repository.
 ```bash
