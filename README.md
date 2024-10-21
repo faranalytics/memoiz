@@ -4,12 +4,13 @@ A thread-safe memoization decorator for functions and methods.
 
 ## Introduction
 
-Memoiz provides a function decorator that adds memoization to a function or method.  It makes reasonable assumptions about how and if to cache the return value of a function or method based on the arguments passed to it. The decorator can be used on both functions and methods.
+Memoiz provides a function decorator that adds memoization to a function or method.  It makes reasonable assumptions about how and if to cache the return value of a function or method based on the arguments passed to it.
 
 ## Features
 
 - Use the Memoiz decorator on functions and methods
-- A thread-safe cache
+- Thread-safe cache
+- Support for any number of arguments or keyword arguments
 - Support for parameter and return type hints
 - Selective cache entry removal
 
