@@ -179,15 +179,15 @@ Memoiz will attempt to transform a callable's arguments into a hashable key.  Th
 ### <h3 id="type-transformations">Type Transformations</h3>
 | Type  | Example | Hashable Type | Hashable Representation | 
 | --- | --- | --- | --- |
-| `int` | `1` | tuple | `(1,)` |
-| `float` | `1.0` | tuple | `(1.0,)` |
-| `complex` | `(-1+0j)` | tuple | `((-1+0j),)` |
+| `int` | `42` | tuple | `(42,)` |
+| `float` | `42.0` | tuple | `(42.0,)` |
+| `complex` | `(-42+0j)` | tuple | `((-42+0j),)` |
 | `bool` | `True` | tuple | `(True,)` |
-| `str` | `a` | tuple | `(a,)` | 
+| `str` | `'a'` | tuple | `('a',)` | 
 | `None` | `None` | tuple | `(None,)` |
 | `dict`  | `{'a':42}` |tuple of tuples | `(('a', 42),)` |
-| `list`  | `[23]` | tuple | `(23,)` |
-| `tuple` | `(42,)`| tuple | `(42,)` |
+| `list`  | `[23,42,57]` | tuple | `(23,42,57)` |
+| `tuple` | `(23,42,57)`| tuple | `(23,42,57)` |
 | `set`   | `{23,42,57}` | tuple | `(23,42,57)` |
 | hashable types | `hash(...)` | tuple | `(Ellipsis,)` |
 
