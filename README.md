@@ -4,7 +4,7 @@ A thread-safe memoization decorator for functions and methods.
 
 ## Introduction
 
-Memoiz provides a function decorator that adds memoization to a function or method.  It makes reasonable assumptions about how and if to cache the return value of a function or method based on the arguments passed to it.
+Memoiz provides a function decorator that adds memoization to a function or method. It makes reasonable assumptions about how and if to cache the return value of a function or method based on the arguments passed to it.
 
 ## Features
 
@@ -174,22 +174,17 @@ print("6:", cache._cache)
 
 ## <h2 id="memoization-strategy">Memoization Strategy</h2>
 
-Memoiz will attempt to transform a callable's arguments into a hashable key.  The key is used in order to index and look up the callable's return value.  The strategy that Memoiz employs for key generation depends on the type of the argument(s) passed to the callable.  The [Type Transformations](#type-transformations) Table provides examples of how Memoiz transforms common types.
+Memoiz will attempt to transform a callable's arguments into a hashable key. The key is used in order to index and look up the callable's return value. The strategy that Memoiz employs for key generation depends on the type of the argument(s) passed to the callable. The [Type Transformations](#type-transformations) table provides examples of how Memoiz transforms arguments of common types.
 
 ### <h3 id="type-transformations">Type Transformations</h3>
-| Type  | Example | Hashable Type | Hashable Representation | 
-| --- | --- | --- | --- |
-| `int` | `42` | tuple | `(42,)` |
-| `float` | `42.0` | tuple | `(42.0,)` |
-| `complex` | `(-42+0j)` | tuple | `((-42+0j),)` |
-| `bool` | `True` | tuple | `(True,)` |
-| `str` | `'a'` | tuple | `('a',)` | 
-| `None` | `None` | tuple | `(None,)` |
-| `dict`  | `{'a':42}` |tuple of tuples | `(('a', 42),)` |
-| `list`  | `[23,42,57]` | tuple | `(23,42,57)` |
-| `tuple` | `(23,42,57)`| tuple | `(23,42,57)` |
-| `set`   | `{23,42,57}` | tuple | `(23,42,57)` |
-| hashable types | `hash(...)` | tuple | `(Ellipsis,)` |
+
+| Type           | Example      | Hashable Type   | Hashable Representation |
+| -------------- | ------------ | --------------- | ----------------------- |
+| `dict`         | `{'a':42}`   | tuple of tuples | `(('a', 42),)`          |
+| `list`         | `[23,42,57]` | tuple           | `(23,42,57)`            |
+| `tuple`        | `(23,42,57)` | tuple           | `(23,42,57)`            |
+| `set`          | `{23,42,57}` | tuple           | `(23,42,57)`            |
+| hashable types | `hash(...)`  | tuple           | `(Ellipsis,)`           |
 
 ## <h2 id="api">API</h2>
 
@@ -222,14 +217,19 @@ Resets the cache making items in the old cache potentially eligible for garbage 
 ## <h2 id="test">Test</h2>
 
 Clone the repository.
+
 ```bash
 git clone https://github.com/faranalytics/memoiz.git
 ```
+
 Change directory into the root of the repository.
+
 ```bash
 cd memoiz
 ```
+
 Run the tests.
+
 ```bash
 python tests/test.py -v
 ```
