@@ -3,7 +3,7 @@ import threading
 import copy
 from functools import wraps
 import logging
-from typing import Tuple, Callable, ParamSpec, TypeVar
+from typing import Tuple, Callable, ParamSpec, TypeVar, Any
 from .cache_exception import CacheException
 
 P = ParamSpec("P")
@@ -14,7 +14,6 @@ class Memoiz:
 
     def __init__(
         self,
-        immutables: Tuple[type, ...] = (int, float, complex, bool, str, type(None)),
         sequentials: Tuple[type, ...] = (list, tuple, set),
         mapables: Tuple[type, ...] = (dict,),
         allow_hash: bool = True,
@@ -22,54 +21,59 @@ class Memoiz:
     ):
         self.allow_hash = allow_hash
         self.deep_copy = deep_copy
-        self.immutables = immutables
         self.sequentials = sequentials
         self.mapables = mapables
         self._cache = {}
         self._lock = threading.Lock()
 
-    def invalidate(self, callable: Callable, *args, **kwargs):
+    def clear(self, callable: Callable, *args, **kwargs) -> None:
         with self._lock:
-            del self._cache[callable][self.freeze((args, kwargs))]
+            args_key = self._freeze((args, kwargs))
+            del self._cache[callable][args_key]
             if len(self._cache[callable]) == 0:
                 del self._cache[callable]
 
-    def invalidate_all(self):
+    def clear_all(self) -> None:
         with self._lock:
             self._cache = {}
 
-    def freeze(self, it):
-        if type(it) in self.immutables:
+    def _freeze(self, it, seen: list = None) -> Any:
+        if seen is None:
+            seen = []
+        try:
+            hash(it)
             return it
-        elif isinstance(it, self.sequentials):
-            return tuple(self.freeze(i) for i in it)
+        except Exception as e:
+            pass
+        if isinstance(it, self.sequentials):
+            if any(it is i for i in seen):
+                return ...
+            seen.append(it)
+            return tuple(self._freeze(i, seen) for i in it)
         elif isinstance(it, self.mapables):
-            return tuple((k, self.freeze(v)) for k, v in sorted(it.items(), key=lambda x: x[0]))
-        elif self.allow_hash:
-            try:
-                hash(it)
-            except Exception as e:
-                raise CacheException(f"Cannot freeze {it}.")
-            return it
-        else:
-            raise CacheException(f"Cannot freeze {it}.")
+            if any(it is i for i in seen):
+                return ...
+            seen.append(it)
+            return tuple((k, self._freeze(v, seen)) for k, v in sorted(it.items(), key=lambda x: x[0]))
+
+        raise CacheException(f"Cannot freeze {it}.")
 
     def __call__(self, callable: Callable[P, T]) -> Callable[P, T]:
         @wraps(callable)
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> T:
             try:
-                if (
+                if len(args) != 0 and (
                     hasattr(args[0], callable.__name__)
                     and inspect.unwrap(getattr(args[0], callable.__name__)) is callable
                 ):
                     # If the first argument is an object and it contains the method `callable` then use the unwrapped method (i.e., the bound function) for the key.
-                    # This is necessary because the bound function is the reference that may be used for invalidation.
+                    # This is necessary because the bound function is the reference that may be used for clearing a chache entry.
                     callable_key = getattr(args[0], callable.__name__)
+                    args_key = self._freeze((args[1:], kwargs))
                 else:
                     # If this is not a method call, then use the wrapper for the key.  This is necessary, as referencing the function will return the wrapper.
                     callable_key = wrapper
-
-                args_key = self.freeze((args, kwargs))
+                    args_key = self._freeze((args, kwargs))
 
                 if callable_key in self._cache and args_key in self._cache[callable_key]:
                     logging.debug(f"Using cache for {(callable_key, args_key)}.")
