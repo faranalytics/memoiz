@@ -180,17 +180,17 @@ Memoiz will attempt to transform a callable's arguments into a hashable key. The
 
 | Type           | Example      | Hashable Type   | Hashable Representation |
 | -------------- | ------------ | --------------- | ----------------------- |
-| `dict`         | `{'a':42}`   | tuple of tuples | `(('a', 42),)`          |
-| `list`         | `[23,42,57]` | tuple           | `(23,42,57)`            |
-| `tuple`        | `(23,42,57)` | tuple           | `(23,42,57)`            |
-| `set`          | `{23,42,57}` | tuple           | `(23,42,57)`            |
+| `dict`         | `{'b':42, 'a':23}`   | tuple of tuples | `(('a', 23),('b, 42))`          |
+| `list`         | `[23, 42, 57]` | tuple           | `(23, 42, 57)`            |
+| `tuple`        | `(23, 42, 57)` | tuple           | `(23, 42, 57)`            |
+| `set`          | `{23, 42, 57}` | tuple           | `(23, 42, 57)`            |
 | hashable types | `hash(...)`  | tuple           | `(Ellipsis,)`           |
 
 ## <h2 id="api">API</h2>
 
 ### The Memoiz Class
 
-**memoiz.Memoiz(immutables, sequentials, allow_hash, deep_copy)**
+**memoiz.Memoiz(sequentials, mapables, deep_copy)**
 
 - sequentials `Tuple[type, ...]` An optional tuple of types that are assumed to be sequence-like. **Default** `(list, tuple, set)`
 - mapables `Tuple[type, ...]` An optional tuple of types that are assumed to be dict-like. **Default** `(dict,)`
