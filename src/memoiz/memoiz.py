@@ -16,10 +16,8 @@ class Memoiz:
         self,
         sequentials: Tuple[type, ...] = (list, tuple, set),
         mapables: Tuple[type, ...] = (dict,),
-        allow_hash: bool = True,
         deep_copy: bool = True,
     ):
-        self.allow_hash = allow_hash
         self.deep_copy = deep_copy
         self.sequentials = sequentials
         self.mapables = mapables
