@@ -12,7 +12,7 @@ Memoiz provides a function decorator that adds memoization to a function or meth
 - A thread-safe cache.
 - Use any number of arguments or keyword arguments.
 - Support for parameter and return type hints.
-- Handles circular references in dictionaries and lists.
+- Handles circular references in dictionaries, lists, sets, and tuples.
 - Support for common unhashable types (e.g., dict, list, set).
 - Selective cache entry removal.
 
