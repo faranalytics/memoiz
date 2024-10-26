@@ -1,6 +1,6 @@
 # Memoiz
 
-A thread-safe memoization decorator for functions and methods.
+A memoization decorator for functions and methods.
 
 ## Introduction
 
