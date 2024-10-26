@@ -9,7 +9,7 @@ Memoiz provides a function decorator that adds memoization to a function or meth
 ## Features
 
 - Use the Memoiz decorator on functions and methods.
-- Thread-safe cache.
+- A thread-safe cache.
 - Use any number of arguments or keyword arguments.
 - Support for parameter and return type hints.
 - Handles circular references in dictionaries and lists.
