@@ -183,13 +183,13 @@ Memoiz will attempt to recursively transform a callable's arguments into a hasha
 
 | Type           | Example      | Hashable Type   | Hashable Representation |
 | -------------- | ------------ | --------------- | ----------------------- |
-| `dict`         | `{'b':42, 'c': 57, 'a':23}`   | tuple of tuples | `(('a', 23), ('b', 42), ('c', 57))`          |
+| `dict`         | `{'b':42, 'c': 57, 'a': 23}`   | tuple of tuples | `(('a', 23), ('b', 42), ('c', 57))`          |
 | `list`         | `[23, 42, 57]` | tuple           | `(23, 42, 57)`            |
 | `tuple`        | `(23, 42, 57)` | tuple           | `(23, 42, 57)`            |
 | `set`          | `{23, 42, 57}` | tuple           | `(23, 42, 57)`            |
 | hashable types | `hash(...)`  | tuple           | `(Ellipsis,)`           |
 
-> **NB** Dictionaries are sorted by their keys.
+> **NB** Dictionaries are sorted by their keys prior to indexing the callable's return value.
 
 ## <h2 id="api">API</h2>
 
