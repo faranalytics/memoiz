@@ -177,7 +177,7 @@ print("6:", cache._cache)
 
 ## <h2 id="memoization-strategy">Memoization Strategy</h2>
 
-Memoiz will attempt to transform a callable's arguments into a hashable key. The key is used in order to index and look up the callable's return value. The strategy that Memoiz employs for key generation depends on the type of the argument(s) passed to the callable. The [Type Transformations](#type-transformations) table provides examples of how Memoiz transforms arguments of common types.
+Memoiz will attempt to recursively transform a callable's arguments into a hashable key. The key is used in order to index and look up the callable's return value. The strategy that Memoiz employs for key generation depends on the type of the argument(s) passed to the callable. The [Type Transformations](#type-transformations) table provides examples of how Memoiz transforms arguments of common types.
 
 ### <h3 id="type-transformations">Type Transformations</h3>
 
@@ -188,6 +188,8 @@ Memoiz will attempt to transform a callable's arguments into a hashable key. The
 | `tuple`        | `(23, 42, 57)` | tuple           | `(23, 42, 57)`            |
 | `set`          | `{23, 42, 57}` | tuple           | `(23, 42, 57)`            |
 | hashable types | `hash(...)`  | tuple           | `(Ellipsis,)`           |
+
+> **NB** Dictionaries are sorted by their keys.
 
 ## <h2 id="api">API</h2>
 
