@@ -8,7 +8,7 @@ dynamic = ["version"]
 authors = [
   { name="Adam Patterson", email="adam@farar.net" },
 ]
-description = "Memoiz is a memoization decorator that makes reasonable assumptions about how and if to cache the return value of a function or method based on the arguments passed to it. The decorator can be used on both free and bound functions."
+description = "A decorator for adding memoization to functions and methods."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [
