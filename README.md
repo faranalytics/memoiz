@@ -1,6 +1,6 @@
 # Memoiz
 
-A memoization decorator for functions and methods.
+A decorator for adding memoization to functions and methods.
 
 ## Introduction
 
