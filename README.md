@@ -18,7 +18,10 @@ Memoiz provides a function decorator that adds memoization to a function or meth
 
 - [Installation](#installation)
 - [Usage](#usage)
+  - [Apply Memoization to Class Methods](#apply-memoization-to-class-methods)
+  - [Apply Memoization to Functions](#apply-memoization-to-functions)
 - [Memoization Strategy](#memoization-strategy)
+  - [Type Transformations](#type-transformations)
 - [API](#api)
 - [Test](#test)
 
@@ -30,7 +33,7 @@ pip install memoiz
 
 ## <h2 id="usage">Usage</h2>
 
-### Methods
+### <h3 id="apply-memoization-to-class-methods">Apply Memoization to Class Methods</h3>
 
 In this example you will use Memoiz to memoize the return value of the `greeter.greet` method and print the greeting.
 
@@ -46,7 +49,7 @@ class Greeter:
     def __init__(self):
         self.adv = "Very"
 
-    @cache # Use the `cache` decorator in order to add memoization capabilities to the `greet` method.
+    @cache # The `cache` decorator adds memoization capabilities to the `greet` method.
     def greet(self, adj: str) -> str:
         return f"Hello, {self.adv} {adj} World!"
 
@@ -106,7 +109,7 @@ print("6:", cache._cache)
 6: {}
 ```
 
-### Functions
+### <h3 id="apply-memoization-to-functions">Apply Memoization to Functions</h3>
 
 In this example you will use Memoiz to memoize the return value of the `greet` function and print the greeting.
 
@@ -152,7 +155,7 @@ print("4:", cache._cache)
 cache.clear(greet, "Happy")
 #           ⮴ function
 
-# The call using the "Happy" argument is deleted; however, the call using the "Cautious" is still present.
+# The cached call using the "Happy" argument is deleted; however, the call using the "Cautious" is still present.
 print("5:", cache._cache)
 
 #                  ⮶ args
