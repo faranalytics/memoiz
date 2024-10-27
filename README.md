@@ -193,11 +193,11 @@ Memoiz will attempt to recursively transform a callable's arguments into a hasha
 
 #### Dictionaries
 
-By default dictionaries are sorted by the string representation of their keys prior to indexing the callable's return value.
+By default a dictionary is sorted by the string representation of its keys prior to indexing the callable's return value.
 
 #### Sets
 
-By default sets are sorted by the string representation of their values prior to indexing the callable's return value.
+By default a set is sorted by the string representation of its values prior to indexing the callable's return value.
 
 ## <h2 id="api">API</h2>
 
