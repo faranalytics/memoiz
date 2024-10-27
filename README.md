@@ -183,13 +183,13 @@ Memoiz will attempt to recursively transform a callable's arguments into a hasha
 
 ### <h3 id="type-transformations-of-common-types">Type Transformations of Common Types</h3>
 
-| Type           | Example      | Hashable Representation |
-| -------------- | ------------ | ----------------------- |
-| `dict`         | `{'b':42, 'c': 57, 'a': 23}` | `(('a', 23), ('b', 42), ('c', 57))`          |
-| `list`         | `[23, 42, 57]` | `(23, 42, 57)`            |
-| `tuple`        | `(23, 42, 57)` | `(23, 42, 57)`            |
-| `set`          | `{..., 23, "42", 57}` | `(23, '42', 57, Ellipsis)`            |
-| hashable types | `...`  | `(Ellipsis,)`           |
+| Type           | Example                      | Hashable Representation             |
+| -------------- | ---------------------------- | ----------------------------------- |
+| `dict`         | `{'b':42, 'c': 57, 'a': 23}` | `(('a', 23), ('b', 42), ('c', 57))` |
+| `list`         | `[23, 42, 57]`               | `(23, 42, 57)`                      |
+| `tuple`        | `(23, 42, 57)`               | `(23, 42, 57)`                      |
+| `set`          | `{..., 23, "42", 57}`        | `(23, '42', 57, Ellipsis)`          |
+| hashable types | `...`                        | `(Ellipsis,)`                       |
 
 #### Dictionaries
 
@@ -214,7 +214,7 @@ By default sets are sorted by the string representation of their values prior to
 
 - callable `typing.Callable` The function or method for which you want to add memoization.
 
-A `Memoiz` instance ([see above](#the-cache-class)) is a callable. This is the `@cache` decorator that is used in order to add memoization to a callable. Please see the above [usage](#usage) for how to use this decorator.
+A `Memoiz` instance is a callable. This is the `@cache` decorator (see [Usage](#usage) above) that is used in order to add memoization to a callable.
 
 **memoiz.clear(callable, \*args, \*\*kwargs)**
 
@@ -222,7 +222,7 @@ A `Memoiz` instance ([see above](#the-cache-class)) is a callable. This is the `
 - args `Any` The arguments passed to the callable.
 - kwargs `Any` The keyword arguments passed to the callable.
 
-Clears the cache for the specified callable and arguments. See the [usage](#usage) for for how to clear the cache.
+Clears the cache for the specified callable and arguments. See [Usage](#usage) for for how to clear the cache.
 
 **memoiz.clear_all()**
 
