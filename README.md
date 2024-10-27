@@ -23,7 +23,7 @@ Memoiz provides a function decorator that adds memoization to a function or meth
   - [Apply Memoization to Class Methods](#apply-memoization-to-class-methods)
   - [Apply Memoization to Functions](#apply-memoization-to-functions)
 - [Memoization Strategy](#memoization-strategy)
-  - [Type Transformations](#type-transformations)
+  - [Type Transformations of Common Types](#type-transformations-of-common-types)
 - [API](#api)
 - [Test](#test)
 
@@ -179,28 +179,35 @@ print("6:", cache._cache)
 
 ## <h2 id="memoization-strategy">Memoization Strategy</h2>
 
-Memoiz will attempt to recursively transform a callable's arguments into a hashable key. The key is used in order to index and look up the callable's return value. The strategy that Memoiz employs for key generation depends on the type of the argument(s) passed to the callable. The [Type Transformations](#type-transformations) table provides examples of how Memoiz transforms arguments of common types.
+Memoiz will attempt to recursively transform a callable's arguments into a hashable key. The key is used in order to index and look up the callable's return value. The strategy that Memoiz employs for key generation depends on the type of the argument(s) passed to the callable. The [Type Transformations of Common Types](#type-transformations-of-common-types) table provides examples of how Memoiz transforms arguments of common types.
 
-### <h3 id="type-transformations">Type Transformations</h3>
+### <h3 id="type-transformations-of-common-types">Type Transformations of Common Types</h3>
 
-| Type           | Example      | Hashable Type   | Hashable Representation |
-| -------------- | ------------ | --------------- | ----------------------- |
-| `dict`         | `{'b':42, 'c': 57, 'a': 23}`   | tuple of tuples | `(('a', 23), ('b', 42), ('c', 57))`          |
-| `list`         | `[23, 42, 57]` | tuple           | `(23, 42, 57)`            |
-| `tuple`        | `(23, 42, 57)` | tuple           | `(23, 42, 57)`            |
-| `set`          | `{23, 42, 57}` | tuple           | `(23, 42, 57)`            |
-| hashable types | `hash(...)`  | tuple           | `(Ellipsis,)`           |
+| Type           | Example      | Hashable Representation |
+| -------------- | ------------ | ----------------------- |
+| `dict`         | `{'b':42, 'c': 57, 'a': 23}` | `(('a', 23), ('b', 42), ('c', 57))`          |
+| `list`         | `[23, 42, 57]` | `(23, 42, 57)`            |
+| `tuple`        | `(23, 42, 57)` | `(23, 42, 57)`            |
+| `set`          | `{..., 23, "42", 57}` | `(23, '42', 57, Ellipsis)`            |
+| hashable types | `...`  | `(Ellipsis,)`           |
 
-> **NB** Dictionaries are sorted by their keys prior to indexing the callable's return value.
+#### Dictionaries
+
+By default dictionaries are sorted by the string representation of their keys prior to indexing the callable's return value.
+
+#### Sets
+
+By default sets are sorted by the string representation of their values prior to indexing the callable's return value.
 
 ## <h2 id="api">API</h2>
 
 ### The Memoiz Class
 
-**memoiz.Memoiz(sequentials, mapables, deep_copy)**
+**memoiz.Memoiz(iterables, mapables, sortables, deep_copy)**
 
-- sequentials `Tuple[type, ...]` An optional tuple of types that are assumed to be sequence-like. **Default** `(list, tuple, set)`
-- mapables `Tuple[type, ...]` An optional tuple of types that are assumed to be dict-like. **Default** `(dict,)`
+- iterables `Tuple[type, ...]` An optional tuple of types that are assumed to be iterables. **Default** `(list, tuple, set)`
+- mapables `Tuple[type, ...]` An optional tuple of types that are assumed to be mappings. **Default** `(dict, OrderedDict)`
+- sortables `Tuple[type, ...]` An optional tuple of types that are sorted by the string representation of their keys or values prior to indexing the return value. **Default** `(dict, set)`
 - deep_copy `bool` Optionally return the cached return value using Python's `copy.deepcopy`. This can help prevent mutations of the cached return value. **Default:** `True`.
 
 **memoiz.\_\_call\_\_(callable)**
