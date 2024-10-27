@@ -4,6 +4,7 @@ import copy
 from functools import wraps
 import logging
 from typing import Tuple, Callable, ParamSpec, TypeVar, Any
+from collections import OrderedDict
 from .cache_exception import CacheException
 
 P = ParamSpec("P")
@@ -14,13 +15,17 @@ class Memoiz:
 
     def __init__(
         self,
-        sequentials: Tuple[type, ...] = (list, tuple, set),
-        mapables: Tuple[type, ...] = (dict,),
+        iterables: Tuple[type, ...] = (list, tuple, set),
+        mapables: Tuple[type, ...] = (dict, OrderedDict),
+        sortables: Tuple[type, ...] = (dict, set),
         deep_copy: bool = True,
+        *args,
+        **kwargs
     ):
         self.deep_copy = deep_copy
-        self.sequentials = sequentials
         self.mapables = mapables
+        self.iterables = iterables
+        self.sortables = sortables
         self._cache = {}
         self._lock = threading.Lock()
 
@@ -43,16 +48,22 @@ class Memoiz:
             return it
         except Exception as e:
             pass
-        if isinstance(it, self.sequentials):
+        if isinstance(it, self.iterables):
             if any(it is i for i in seen):
                 return ...
             seen.append(it)
+            if type(it) in self.sortables:
+                it = sorted(it, key=str)
             return tuple(self._freeze(i, seen) for i in it)
         elif isinstance(it, self.mapables):
             if any(it is i for i in seen):
                 return ...
             seen.append(it)
-            return tuple((k, self._freeze(v, seen)) for k, v in sorted(it.items(), key=lambda x: x[0]))
+            if type(it) in self.sortables:
+                its = sorted(it.items(), key=lambda x: str(x[0]))
+            else:
+                its = it.items()
+            return tuple((k, self._freeze(v, seen)) for k, v in its)
 
         raise CacheException(f"Cannot freeze {it}.")
 
