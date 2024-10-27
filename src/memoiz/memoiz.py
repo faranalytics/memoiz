@@ -20,7 +20,7 @@ class Memoiz:
         sortables: Tuple[type, ...] = (dict, set),
         deep_copy: bool = True,
         *args,
-        **kwargs
+        **kwargs,
     ):
         self.deep_copy = deep_copy
         self.mapables = mapables
