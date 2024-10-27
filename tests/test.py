@@ -47,7 +47,7 @@ class TestCase(unittest.TestCase):
         self.identity(x)
         self.assertEqual(self.cache._cache[self.identity][(((...,),), ())], (([x],), {}))
 
-    def test_cache_entry_removal(self) -> None:
+    def test_removal_of_entry_from_cache_for_function_with_args(self) -> None:
         self.identity({"a": 42}, a=42)
         self.identity({"a": 23}, a=23)
         self.cache.clear(self.identity, {"a": 42}, a=42)
@@ -55,12 +55,17 @@ class TestCase(unittest.TestCase):
             self.cache._cache, {self.identity: {(((("a", 23),),), ((("a", 23),))): (({"a": 23},), {"a": 23})}}
         )
 
-    def test_cache_callable_removal(self) -> None:
-        self.identity({"a": 42})
-        self.cache.clear(self.identity, {"a": 42})
+    def test_removal_of_function_from_cache_with_args(self) -> None:
+        self.identity({"a": 42}, a=42)
+        self.cache.clear(self.identity, {"a": 42}, a=42)
         self.assertEqual(self.cache._cache, {})
 
-    def test_cache_entry_removal_for_method(self) -> None:
+    def test_removal_of_function_from_cache(self) -> None:
+        self.identity({"a": 42})
+        self.cache.clear_callable(self.identity)
+        self.assertEqual(self.cache._cache, {})
+
+    def test_removal_of_entry_for_method(self) -> None:
         self.test.identity({"a": 42}, a=42)
         self.test.identity({"a": 23}, a=23)
         self.cache.clear(self.test.identity, {"a": 42}, a=42)
@@ -68,7 +73,7 @@ class TestCase(unittest.TestCase):
             self.cache._cache, {self.test.identity: {(((("a", 23),),), (("a", 23),)): (({"a": 23},), {"a": 23})}}
         )
 
-    def test_cache_callable_removal_for_method(self) -> None:
+    def test_removal_of_method_with_args(self) -> None:
         self.test.identity({"a": 42})
         self.cache.clear(self.test.identity, {"a": 42})
         self.assertEqual(self.cache._cache, {})
