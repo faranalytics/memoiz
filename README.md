@@ -228,6 +228,10 @@ Clears the cache for the specified callable and arguments. See the [usage](#usag
 
 Resets the cache making items in the old cache potentially eligible for garbage collection.
 
+**memoiz.clear_callable(callable)**
+
+Clears a callable and all of its entries from the cache.
+
 ## <h2 id="test">Test</h2>
 
 Clone the repository.
