@@ -37,8 +37,7 @@ class Memoiz:
                 del self._cache[callable]
 
     def clear_all(self) -> None:
-        with self._lock:
-            self._cache = {}
+        self._cache = {}
 
     def _freeze(self, it, seen: list = None) -> Any:
         if seen is None:
