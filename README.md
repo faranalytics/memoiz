@@ -230,7 +230,7 @@ Resets the cache making items in the old cache potentially eligible for garbage 
 
 **memoiz.clear_callable(callable)**
 
-Clears a callable and all of its entries from the cache.
+Clears the cache and all of the entries for the specified callable.
 
 ## <h2 id="test">Test</h2>
 
