@@ -36,6 +36,10 @@ class Memoiz:
             if len(self._cache[callable]) == 0:
                 del self._cache[callable]
 
+    def clear_callable(self, callable: Callable) -> None:
+        with self._lock:
+            del self._cache[callable]
+
     def clear_all(self) -> None:
         self._cache = {}
 
