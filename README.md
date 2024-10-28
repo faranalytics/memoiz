@@ -203,10 +203,10 @@ By default a set is sorted by the string representation of its values prior to i
 
 ### The Memoiz Class
 
-**memoiz.Memoiz(iterables, mapables, sortables, deep_copy)**
+**memoiz.Memoiz(iterables, mappables, sortables, deep_copy)**
 
 - iterables `Tuple[type, ...]` An optional tuple of types that are assumed to be iterables. **Default** `(list, tuple, set)`
-- mapables `Tuple[type, ...]` An optional tuple of types that are assumed to be mappings. **Default** `(dict, OrderedDict)`
+- mappables `Tuple[type, ...]` An optional tuple of types that are assumed to be mappings. **Default** `(dict, OrderedDict)`
 - sortables `Tuple[type, ...]` An optional tuple of types that are sorted by the string representation of their keys or values prior to indexing the return value. **Default** `(dict, set)`
 - deep_copy `bool` Optionally return the cached return value using Python's `copy.deepcopy`. This can help prevent mutations of the cached return value. **Default:** `True`.
 

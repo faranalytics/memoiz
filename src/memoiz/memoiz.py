@@ -16,14 +16,14 @@ class Memoiz:
     def __init__(
         self,
         iterables: Tuple[type, ...] = (list, tuple, set),
-        mapables: Tuple[type, ...] = (dict, OrderedDict),
+        mappables: Tuple[type, ...] = (dict, OrderedDict),
         sortables: Tuple[type, ...] = (dict, set),
         deep_copy: bool = True,
         *args,
         **kwargs,
     ):
         self.deep_copy = deep_copy
-        self.mapables = mapables
+        self.mappables = mappables
         self.iterables = iterables
         self.sortables = sortables
         self._cache = {}
@@ -58,7 +58,7 @@ class Memoiz:
             if type(it) in self.sortables:
                 it = sorted(it, key=str)
             return tuple(self._freeze(i, seen) for i in it)
-        elif isinstance(it, self.mapables):
+        elif isinstance(it, self.mappables):
             if any(it is i for i in seen):
                 return ...
             seen.append(it)
