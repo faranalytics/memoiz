@@ -29,11 +29,11 @@ class TestCase(unittest.TestCase):
         self.identity = identity
         self.callable = callable
 
-    def test_cache_member(self) -> None:
+    def test_cache_entry(self) -> None:
         self.identity({"a": 42})
         self.assertIn(self.identity, self.cache._cache)
 
-    def test_cache_callable_member(self) -> None:
+    def test_cache_callable_entry(self) -> None:
         self.identity({"a": 42})
         self.assertIn((((("a", 42),),), ()), self.cache._cache[self.identity])
 
@@ -45,38 +45,38 @@ class TestCase(unittest.TestCase):
         x = []
         x.append(x)
         self.identity(x)
-        self.assertEqual(self.cache._cache[self.identity][(((...,),), ())], (([x],), {}))
+        self.assertEqual((([x],), {}), self.cache._cache[self.identity][(((...,),), ())])
 
     def test_removal_of_entry_from_cache_for_function_with_args(self) -> None:
         self.identity({"a": 42}, a=42)
         self.identity({"a": 23}, a=23)
         self.cache.clear(self.identity, {"a": 42}, a=42)
         self.assertEqual(
-            self.cache._cache, {self.identity: {(((("a", 23),),), ((("a", 23),))): (({"a": 23},), {"a": 23})}}
+            {self.identity: {(((("a", 23),),), ((("a", 23),))): (({"a": 23},), {"a": 23})}}, self.cache._cache
         )
 
     def test_removal_of_function_from_cache_with_args(self) -> None:
         self.identity({"a": 42}, a=42)
         self.cache.clear(self.identity, {"a": 42}, a=42)
-        self.assertEqual(self.cache._cache, {})
+        self.assertEqual({}, self.cache._cache)
 
     def test_removal_of_function_from_cache(self) -> None:
         self.identity({"a": 42})
         self.cache.clear_callable(self.identity)
-        self.assertEqual(self.cache._cache, {})
+        self.assertEqual({}, self.cache._cache)
 
     def test_removal_of_entry_for_method(self) -> None:
         self.test.identity({"a": 42}, a=42)
         self.test.identity({"a": 23}, a=23)
         self.cache.clear(self.test.identity, {"a": 42}, a=42)
         self.assertEqual(
-            self.cache._cache, {self.test.identity: {(((("a", 23),),), (("a", 23),)): (({"a": 23},), {"a": 23})}}
+            {self.test.identity: {(((("a", 23),),), (("a", 23),)): (({"a": 23},), {"a": 23})}}, self.cache._cache
         )
 
     def test_removal_of_method_with_args(self) -> None:
         self.test.identity({"a": 42})
         self.cache.clear(self.test.identity, {"a": 42})
-        self.assertEqual(self.cache._cache, {})
+        self.assertEqual({}, self.cache._cache)
 
     def test_deterministic_representation_of_sets(self) -> None:
         for _ in range(0, int(1e4)):
@@ -85,7 +85,7 @@ class TestCase(unittest.TestCase):
             self.assertEqual(s1, s2)
             self.identity(s1)
             self.identity(s2)
-            self.assertEqual(len(self.cache._cache[self.identity]), 1)
+            self.assertEqual(1, len(self.cache._cache[self.identity]))
 
     def test_deterministic_representation_of_dicts(self) -> None:
         for _ in range(0, int(1e4)):
@@ -94,7 +94,7 @@ class TestCase(unittest.TestCase):
             self.assertEqual(d1, d2)
             self.identity(d1)
             self.identity(d2)
-            self.assertEqual(len(self.cache._cache[self.identity]), 1)
+            self.assertEqual(1, len(self.cache._cache[self.identity]))
 
     def test_insertion_order_of_ordereddicts(self) -> None:
         d1 = OrderedDict(a=23, b=42, c=57)
@@ -104,7 +104,7 @@ class TestCase(unittest.TestCase):
         self.identity(d1)
         self.identity(d2)
         self.identity(d3)
-        self.assertEqual(len(self.cache._cache[self.identity]), 2)
+        self.assertEqual(2, len(self.cache._cache[self.identity]))
 
 
 if __name__ == "__main__":
