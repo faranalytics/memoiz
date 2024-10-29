@@ -3,6 +3,7 @@ import threading
 import copy
 from functools import wraps
 import logging
+from .circular_reference import circular_reference
 from typing import Tuple, Callable, ParamSpec, TypeVar, Any
 from collections import OrderedDict
 from .cache_exception import CacheException
@@ -53,14 +54,14 @@ class Memoiz:
             pass
         if isinstance(it, self.iterables):
             if any(it is i for i in seen):
-                return ...
+                return circular_reference
             seen.append(it)
             if type(it) in self.sortables:
                 it = sorted(it, key=str)
             return tuple(self._freeze(i, seen) for i in it)
         elif isinstance(it, self.mappables):
             if any(it is i for i in seen):
-                return ...
+                return circular_reference
             seen.append(it)
             if type(it) in self.sortables:
                 its = sorted(it.items(), key=lambda x: str(x[0]))
