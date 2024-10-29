@@ -44,7 +44,7 @@ class Memoiz:
     def clear_all(self) -> None:
         self._cache = {}
 
-    def _freeze(self, it, seen: list = None) -> Any:
+    def _freeze(self, it: Any, seen: list = None) -> Any:
         if seen is None:
             seen = []
         try:
