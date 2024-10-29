@@ -25,6 +25,7 @@ Memoiz provides a function decorator that adds memoization to a function or meth
 - [Memoization Strategy](#memoization-strategy)
   - [Type Transformations of Common Types](#type-transformations-of-common-types)
 - [API](#api)
+- [Versioning](#versioning)
 - [Test](#test)
 
 ## <h2 id="installation">Installation</h2>
@@ -231,6 +232,20 @@ Resets the cache making items in the old cache potentially eligible for garbage 
 **memoiz.clear_callable(callable)**
 
 Clears the cache and all of the entries for the specified callable.
+
+## <h2 id="versioning">Versioning</h2>
+
+The Memoiz package strictly adheres to semantic versioning.  Breaking changes to the API will increment the major.  Minor and patch changes will always be backward compatible.
+
+Excerpted from [Semantic Versioning 2.0.0](https://semver.org/):
+
+> Given a version number MAJOR.MINOR.PATCH, increment the:
+>
+> 1. MAJOR version when you make incompatible API changes
+> 2. MINOR version when you add functionality in a backward compatible manner
+> 3. PATCH version when you make backward compatible bug fixes
+>
+> Additional labels for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format.
 
 ## <h2 id="test">Test</h2>
 
