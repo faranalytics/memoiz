@@ -1,7 +1,7 @@
 import unittest
 from typing import Any
 from collections import OrderedDict
-from memoiz import Memoiz
+from memoiz import Memoiz, circular_reference
 
 
 class TestCase(unittest.TestCase):
@@ -45,7 +45,7 @@ class TestCase(unittest.TestCase):
         x = []
         x.append(x)
         self.identity(x)
-        self.assertEqual((([x],), {}), self.cache._cache[self.identity][(((...,),), ())])
+        self.assertEqual((([x],), {}), self.cache._cache[self.identity][(((circular_reference,),), ())])
 
     def test_removal_of_entry_from_cache_for_function_with_args(self) -> None:
         self.identity({"a": 42}, a=42)
