@@ -43,7 +43,7 @@ In this example you will use Memoiz to memoize the return value of the `greeter.
 ```py
 from memoiz import Memoiz
 
-# `cache` is a Python decorator and a callable.
+# `cache` is a Python decorator.
 cache = Memoiz()
 
 
@@ -51,8 +51,9 @@ class Greeter:
 
     def __init__(self):
         self.adv = "Very"
-
-    @cache # The `cache` decorator adds memoization capabilities to the `greet` method.
+    
+    # The `cache` decorator adds memoization capabilities to the `greet` method.
+    @cache
     def greet(self, adj: str) -> str:
         return f"Hello, {self.adv} {adj} World!"
 
