@@ -4,7 +4,7 @@ A decorator for adding memoization to functions and methods.
 
 ## Introduction
 
-Memoiz provides a function decorator that adds memoization to a function or method. It makes reasonable assumptions about how and if to cache the return value of a function or method based on the arguments passed to it.
+Memoiz provides a function decorator that adds memoization to a function or method. It makes reasonable assumptions about how and if to cache the return value of a function or method based on the arguments passed to the callable.
 
 ## Features
 
