@@ -1,3 +1,3 @@
-import typing
-def circular_reference() -> typing.Callable:
+from typing import Callable
+def circular_reference() -> Callable:
     return circular_reference
