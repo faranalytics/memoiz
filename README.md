@@ -10,7 +10,7 @@ Memoiz provides a function decorator that adds memoization to a function or meth
 
 - Use the Memoiz decorator on functions and methods.
 - A thread-safe cache.
-- Use any number of arguments or keyword arguments.
+- Call your function or method with any number of arguments or keyword arguments.
 - Support for parameter and return type hints.
 - Handles circular references in dictionaries, lists, sets, and tuples.
 - Support for common unhashable types (e.g., dict, list, set).
@@ -60,6 +60,7 @@ class Greeter:
 
 greeter = Greeter()
 
+# The cache is empty.
 print("1:", cache._cache)
 
 greeting = greeter.greet("Happy")
@@ -77,6 +78,7 @@ As a continuation of the example, you will selectively clear cached articles usi
 ```python
 greeter = Greeter()
 
+# The cache is empty.
 print("1:", cache._cache)
 
 greeting = greeter.greet("Happy")
@@ -143,6 +145,7 @@ print("2:", greeting)
 As a continuation of the example, you will selectively clear cached articles using the `cache.clear` method.
 
 ```python
+# The cache is empty.
 print("1:", cache._cache)
 
 greeting = greet("Happy")
@@ -153,6 +156,7 @@ greeting = greet("Cautious")
 
 print("3:", greeting)
 
+# Both the `Happy` and `Cautious` call have been cached.
 print("4:", cache._cache)
 
 #                  ⮶ args
@@ -195,7 +199,7 @@ Memoiz will attempt to recursively transform a callable's arguments into a hasha
 
 #### Dictionaries
 
-By default a dictionary is sorted by the string representation of its keys prior to indexing the callable's return value.
+By default a dictionary is sorted by the string representation of its keys prior to indexing the callable's return value.  If you wish to rely on the iteration order of `dict` instances you can specify this preference as an argument to the `sortables` parameter of the [Memoiz](#the-memoiz-class) constructor (e.g., `(set,)`).
 
 #### Sets
 
