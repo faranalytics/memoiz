@@ -228,15 +228,15 @@ Clears the cache for the specified callable and arguments. See [Usage](#usage) f
 
 **memoiz.clear_all()**
 
-Resets the cache making items in the old cache potentially eligible for garbage collection.
+Resets the cache making released items potentially eligible for garbage collection.
 
 **memoiz.clear_callable(callable)**
 
-Clears the cache and all of the entries for the specified callable.
+Clears the cache and all the entries for the specified callable.
 
 ## <h2 id="versioning">Versioning</h2>
 
-The Memoiz package strictly adheres to semantic versioning.  Breaking changes to the API will result in a turn of the major.  Minor and patch changes will always be backward compatible.
+The Memoiz package strictly adheres to semantic versioning.  Breaking changes to the public API will result in a turn of the major.  Minor and patch changes will always be backward compatible.
 
 Excerpted from [Semantic Versioning 2.0.0](https://semver.org/):
 
