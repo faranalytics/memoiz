@@ -129,7 +129,7 @@ cache = Memoiz()
 def greet(adj: str) -> str:
     return f"Hello, {adj} World!"
 
-
+# The cache is empty.
 print("1:", cache._cache)
 
 greeting = greet("Happy")
