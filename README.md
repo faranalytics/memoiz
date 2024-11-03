@@ -51,7 +51,7 @@ class Greeter:
 
     def __init__(self):
         self.adv = "Very"
-    
+
     # The `cache` decorator adds memoization capabilities to the `greet` method.
     @cache
     def greet(self, adj: str) -> str:
@@ -199,7 +199,7 @@ Memoiz will attempt to recursively transform a callable's arguments into a hasha
 
 #### Dictionaries
 
-By default a dictionary is sorted by the string representation of its keys prior to indexing the callable's return value.  If you wish to rely on the iteration order of `dict` instances you can specify this preference as an argument to the `sortables` parameter of the [Memoiz](#the-memoiz-class) constructor (e.g., `(set,)`).
+By default a dictionary is sorted by the string representation of its keys prior to indexing the callable's return value. If you wish to rely on the iteration order of `dict` instances you can specify this preference as an argument to the `sortables` parameter of the [Memoiz](#the-memoiz-class) constructor (e.g., `(set,)`).
 
 #### Sets
 
@@ -240,7 +240,7 @@ Clears the cache and all the entries for the specified callable.
 
 ## <h2 id="versioning">Versioning</h2>
 
-The Memoiz package strictly adheres to semantic versioning.  Breaking changes to the public API will result in a turn of the major.  Minor and patch changes will always be backward compatible.
+The Memoiz package strictly adheres to semantic versioning. Breaking changes to the public API will result in a turn of the major. Minor and patch changes will always be backward compatible.
 
 Excerpted from [Semantic Versioning 2.0.0](https://semver.org/):
 
@@ -261,16 +261,19 @@ git clone https://github.com/faranalytics/memoiz.git
 ```
 
 Change directory into the root of the repository.
+
 ```bash
 cd memoiz
 ```
 
 Install the package in editable mode.
+
 ```bash
 pip install -e .
 ```
 
 Run the tests.
+
 ```bash
 python -m unittest -v
 ```
