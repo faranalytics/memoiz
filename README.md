@@ -199,7 +199,7 @@ Memoiz will attempt to recursively transform a callable's arguments into a hasha
 
 #### Dictionaries
 
-By default a dictionary is sorted by the string representation of its keys prior to indexing the callable's return value. If you wish to rely on the iteration order of `dict` instances you can specify this preference as an argument to the `sortables` parameter of the [Memoiz](#the-memoiz-class) constructor (e.g., `(set,)`).
+By default a dictionary is sorted by the string representation of its keys prior to indexing the callable's return value. If you wish to rely on the iteration order of `dict` instances you can specify this preference as an argument to the `sortables` parameter of the [Memoiz](#the-memoiz-class) constructor (e.g., pass in `(set,)` in order to override the default).
 
 #### Sets
 
@@ -207,7 +207,7 @@ By default a set is sorted by the string representation of its values prior to i
 
 ## <h2 id="api">API</h2>
 
-### The Memoiz Class
+### <h3 id="the-memoiz-class">The Memoiz Class</h3>
 
 **memoiz.Memoiz(iterables, mappables, sortables, deep_copy)**
 
