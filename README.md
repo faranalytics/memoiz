@@ -261,13 +261,16 @@ git clone https://github.com/faranalytics/memoiz.git
 ```
 
 Change directory into the root of the repository.
-
 ```bash
 cd memoiz
 ```
 
-Run the tests.
-
+Install the package in editable mode.
 ```bash
-python tests/test.py -v
+pip install -e .
+```
+
+Run the tests.
+```bash
+python -m unittest -v
 ```
