@@ -45,7 +45,7 @@ class TestCase(unittest.TestCase):
         x = []
         x.append(x)
         self.identity(x)
-        self.assertEqual((([x],), {}), self.cache._cache[self.identity][(((circular_reference,),), ())])
+        self.assertEqual((([x],), {}), self.cache._cache[self.identity][(((str(x),),), ())])
 
     def test_removal_of_entry_from_cache_for_function_with_args(self) -> None:
         self.identity({"a": 42}, a=42)
