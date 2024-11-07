@@ -1,7 +1,7 @@
 import unittest
 from typing import Any
 from collections import OrderedDict
-from memoiz import Memoiz, circular_reference
+from memoiz import Memoiz
 
 
 class TestCase(unittest.TestCase):
