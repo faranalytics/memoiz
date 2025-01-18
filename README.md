@@ -70,7 +70,7 @@ print("2:", greeting)
 2: Hello, Very Happy World!
 ```
 
-##### As a continuation of the example, you will selectively clear cached articles using the `cache.clear` method.
+#### As a continuation of the example, you will selectively clear cached articles using the `cache.clear` method.
 
 ```python
 greeter = Greeter()
