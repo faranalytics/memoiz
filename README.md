@@ -16,27 +16,24 @@ Memoiz provides a function decorator that adds memoization to a function or meth
 - Support for common unhashable types (e.g., dict, list, set).
 - Selective cache entry removal.
 
-## Table of Contents
+## Table of contents
 
 - [Installation](#installation)
 - [Usage](#usage)
-  - [Apply Memoization to Class Methods](#apply-memoization-to-class-methods)
-  - [Apply Memoization to Functions](#apply-memoization-to-functions)
-- [Memoization Strategy](#memoization-strategy)
-  - [Type Transformations of Common Types](#type-transformations-of-common-types)
+- [Memoization strategy](#memoization-strategy)
 - [API](#api)
 - [Versioning](#versioning)
 - [Test](#test)
 
-## <h2 id="installation">Installation</h2>
+## Installation
 
 ```bash
 pip install memoiz
 ```
 
-## <h2 id="usage">Usage</h2>
+## Usage
 
-### <h3 id="apply-memoization-to-class-methods">Apply Memoization to Class Methods</h3>
+### Apply memoization to class methods
 
 In this example you will use Memoiz to memoize the return value of the `greeter.greet` method and print the greeting.
 
@@ -73,7 +70,7 @@ print("2:", greeting)
 2: Hello, Very Happy World!
 ```
 
-As a continuation of the example, you will selectively clear cached articles using the `cache.clear` method.
+##### As a continuation of the example, you will selectively clear cached articles using the `cache.clear` method.
 
 ```python
 greeter = Greeter()
@@ -115,7 +112,7 @@ print("6:", cache._cache)
 6: {}
 ```
 
-### <h3 id="apply-memoization-to-functions">Apply Memoization to Functions</h3>
+### Apply memoization to functions
 
 In this example you will use Memoiz to memoize the return value of the `greet` function and print the greeting.
 
@@ -142,7 +139,7 @@ print("2:", greeting)
 2: Hello, Happy World!
 ```
 
-As a continuation of the example, you will selectively clear cached articles using the `cache.clear` method.
+#### As a continuation of the example, you will selectively clear cached articles using the `cache.clear` method.
 
 ```python
 # The cache is empty.
@@ -183,11 +180,11 @@ print("6:", cache._cache)
 6: {}
 ```
 
-## <h2 id="memoization-strategy">Memoization Strategy</h2>
+## Memoization strategy
 
 Memoiz will attempt to recursively transform a callable's arguments into a hashable key. The key is used in order to index and look up the callable's return value. The strategy that Memoiz employs for key generation depends on the type of the argument(s) passed to the callable. The [Type Transformations of Common Types](#type-transformations-of-common-types) table provides examples of how Memoiz transforms arguments of common types.
 
-### <h3 id="type-transformations-of-common-types">Type Transformations of Common Types</h3>
+### Type transformations of common types
 
 | Type           | Example                      | Hashable Representation             |
 | -------------- | ---------------------------- | ----------------------------------- |
@@ -205,11 +202,11 @@ By default a dictionary is sorted by the string representation of its keys prior
 
 By default a set is sorted by the string representation of its values prior to indexing the callable's return value.
 
-## <h2 id="api">API</h2>
+## API
 
-### <h3 id="the-memoiz-class">The Memoiz Class</h3>
+### The Memoiz class
 
-**memoiz.Memoiz(iterables, mappables, sortables, deep_copy)**
+#### memoiz.Memoiz(iterables, mappables, sortables, deep_copy)
 
 - iterables `Tuple[type, ...]` An optional tuple of types that are assumed to be iterables. **Default** `(list, tuple, set)`
 - mappables `Tuple[type, ...]` An optional tuple of types that are assumed to be mappings. **Default** `(dict, OrderedDict)`
@@ -238,7 +235,7 @@ Resets the cache making released items potentially eligible for garbage collecti
 
 Clears the cache and all the entries for the specified callable.
 
-## <h2 id="versioning">Versioning</h2>
+## Versioning
 
 The Memoiz package strictly adheres to semantic versioning. Breaking changes to the public API will result in a turn of the major. Minor and patch changes will always be backward compatible.
 
@@ -252,27 +249,29 @@ Excerpted from [Semantic Versioning 2.0.0](https://semver.org/):
 >
 > Additional labels for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format.
 
-## <h2 id="test">Test</h2>
+## Test
 
-Clone the repository.
+### How to run the test
+
+#### Clone the repository.
 
 ```bash
 git clone https://github.com/faranalytics/memoiz.git
 ```
 
-Change directory into the root of the repository.
+#### Change directory into the root of the repository.
 
 ```bash
 cd memoiz
 ```
 
-Install the package in editable mode.
+#### Install the package in editable mode.
 
 ```bash
 pip install -e .
 ```
 
-Run the tests.
+#### Run the tests.
 
 ```bash
 python -m unittest -v
