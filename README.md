@@ -1,5 +1,9 @@
 # Memoiz
 
+[![PyPI version](https://img.shields.io/pypi/v/memoiz.svg)](https://pypi.org/project/memoiz/)
+[![Python versions](https://img.shields.io/pypi/pyversions/memoiz.svg)](https://pypi.org/project/memoiz/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 A decorator for adding memoization to functions and methods.
 
 ## Introduction
